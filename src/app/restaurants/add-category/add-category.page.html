@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+          icon="arrow-back">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Ajouter une categorie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <form  #f="ngForm" novalidate  (ngSubmit)="addCategorie(f)">
+
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="ngForm.name" ></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label position="floating">Image</ion-label>
+        <ion-input type="text" name="image" [(ngModel)]="ngForm.image" image></ion-input>
+      </ion-item>
+
+
+    </ion-list>
+
+    <ion-item class="ion-float-right" lines="none">
+      <ion-button type="submit" size="large" [disabled]="!f.valid">Enregistrer</ion-button>
+    </ion-item>
+  </form>
+
+</ion-content>

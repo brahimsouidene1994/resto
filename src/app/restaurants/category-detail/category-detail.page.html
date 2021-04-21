@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+          icon="arrow-back">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Les restaurants</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/restaurant-add/{{indice}}">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-title>{{category.name}} restaurants</ion-title>
+  <ion-list>
+    <ion-item *ngFor="let resto of category.list_restaurants; let i = index" (click)="showDetail(resto)">
+      <ion-avatar slot="start">
+        <ion-img  [src]="resto.image"></ion-img>
+      </ion-avatar>
+      <ion-label>{{resto.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
