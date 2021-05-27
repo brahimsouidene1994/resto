@@ -12,7 +12,7 @@
   </ion-fab>
 
   <ion-list>
-    <ion-item *ngFor="let cat of categories; let i = index;" routerLink="/category-detail/{{i}}">
+    <ion-item *ngFor="let cat of categories; let i = index;" routerLink="/category-detail/{{cat.id}}">
       <ion-avatar slot="start">
         <ion-img  [src]="cat.image"></ion-img>
       </ion-avatar>

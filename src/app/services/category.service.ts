@@ -1,27 +1,61 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../model/category';
 import { Restaurant } from '../model/restaurant';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
   categories = [
-      new Category(1, "Italian" , "https://images-na.ssl-images-amazon.com/images/I/81muevvzu8L._AC_SL1500_.jpg"),
-      new Category(2,"Frensh","https://c.files.bbci.co.uk/117CC/production/_108582617_041057304-1.jpg"),
-      new Category(3,"Marroc","https://i.pinimg.com/originals/85/08/e5/8508e5c2a620e6fbdddb9153b18d130a.jpg")
+
   ]
-  constructor() { }
+  constructor(private httpC : HttpClient) { }
 
-  getCategories(){
-    return [...this.categories]
-  }
-
-  addCategorie(cat : Category){
-    this.categories.push(cat)
-  }
 
   addRestaurant(indice : number, resto : Restaurant){
     this.categories[indice].list_restaurants.push(resto)
   }
+
+  getAllCategorie(){
+    return new Promise((resolve, reject) => {
+      this.httpC.get('http://localhost:3010/category-list')
+        .forEach(data =>
+          {
+            resolve(data)
+          }
+
+        ).catch((err) => {
+          reject(err);
+        });
+    });
+  }
+  getOneCategorie(index : number){
+    return new Promise((resolve, reject) => {
+      this.httpC.get(`http://localhost:3010/category/${index}`)
+        .forEach(data =>
+          {
+            resolve(data)
+          }
+
+        ).catch((err) => {
+          reject(err);
+        });
+    });
+  }
+  addCategorie(categorie : Category){
+    return new Promise((resolve, reject) => {
+      console.log(categorie)
+      this.httpC.post('http://localhost:3010/category/add', categorie)
+        .forEach(data =>{
+          console.log(data)
+          resolve(data)
+        }
+        ).catch((err) => {
+          console.log(err)
+          reject(err);
+        });
+    });
+  }
+
 }

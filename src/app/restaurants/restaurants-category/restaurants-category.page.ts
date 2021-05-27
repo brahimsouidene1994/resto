@@ -8,21 +8,33 @@ import { CategoryService } from 'src/app/services/category.service';
   templateUrl: './restaurants-category.page.html',
   styleUrls: ['./restaurants-category.page.scss'],
 })
-export class RestaurantsCategoryPage implements OnInit, DoCheck {
+export class RestaurantsCategoryPage implements OnInit{
 
   categories : Category[]
   constructor(private categoryService : CategoryService, private router : Router) { }
 
   ngOnInit() {
-    this.categories = this.categoryService.getCategories()
-  }
-
-  ngDoCheck(){
-    this.categories = this.categoryService.getCategories()
+    this.getAllCategrories((rows)=>{
+      console.log(rows)
+      this.categories = rows;
+    });
   }
 
   goToAddCategory(){
     this.router.navigate(['/add-category'])
   }
 
+  async getAllCategrories(callback){
+
+    try {
+      const {err,rows}=await this.categoryService.getAllCategorie()as any||[];
+      if(!err){
+        callback(rows);
+      }
+
+    } catch (error) {
+      return error;
+
+    }
+  }
 }

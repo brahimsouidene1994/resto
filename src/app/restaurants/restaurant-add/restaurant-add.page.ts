@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Restaurant } from 'src/app/model/restaurant';
 import { CategoryService } from 'src/app/services/category.service';
+import { RestaurantService } from 'src/app/services/restaurant.service';
 
 @Component({
   selector: 'app-restaurant-add',
@@ -19,7 +20,7 @@ export class RestaurantAddPage  {
 
   constructor(
     public alertController: AlertController,
-    private categoryService : CategoryService,
+    public restoService: RestaurantService,
     private router : Router,
     private activatedRoute : ActivatedRoute,)
      {
@@ -42,7 +43,7 @@ export class RestaurantAddPage  {
       }
   }
 
-  addRestaurant(myForm : NgForm){
+  /*addRestaurant(myForm : NgForm){
     this.isSubmitted = true
     this.categoryService
             .addRestaurant(this.indice,
@@ -52,6 +53,17 @@ export class RestaurantAddPage  {
                 myForm.controls.adresse.value,
                 myForm.controls.image.value ))
     this.presentAlert()
+  }*/
+
+  async addRestaurant(f : NgForm){
+    try{
+      const restaurant = new Restaurant(f.value.name, f.value.image, f.value.adresse, this.indice);
+      console.log(restaurant);
+      const  {err}=await this.restoService.addRestaurant(restaurant) as any;
+      this.presentAlert()
+      if(!err)
+        console.log("added")
+    }catch(err){}
   }
 
   noSubmit(e) {
@@ -67,5 +79,6 @@ export class RestaurantAddPage  {
     });
 
     await alert.present();
+    this.router.navigate([`/category-detail/${this.indice}`])
   }
 }

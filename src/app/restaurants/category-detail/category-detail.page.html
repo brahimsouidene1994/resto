@@ -16,11 +16,11 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-title>{{category.name}} restaurants</ion-title>
+  <ion-title> restaurants</ion-title>
   <ion-list>
-    <ion-item *ngFor="let resto of category.list_restaurants; let i = index" (click)="showDetail(resto)">
+    <ion-item *ngFor="let resto of this.list_restaurants" (click)="showDetail(resto)">
       <ion-avatar slot="start">
-        <ion-img  [src]="resto.image"></ion-img>
+        <ion-img [src]="resto.image" ></ion-img>
       </ion-avatar>
       <ion-label>{{resto.name}}</ion-label>
     </ion-item>
