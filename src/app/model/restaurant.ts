@@ -6,7 +6,7 @@ export class Restaurant {
     private name: string,
     private image: string,
     private adresse: string,
-    private cat_id:number,
+    public cat_id:number,
     private id?: number,
   ){}
 }

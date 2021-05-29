@@ -14,10 +14,13 @@ export class RestaurantsCategoryPage implements OnInit{
   constructor(private categoryService : CategoryService, private router : Router) { }
 
   ngOnInit() {
+  }
+  ionViewWillEnter(){
     this.getAllCategrories((rows)=>{
       console.log(rows)
       this.categories = rows;
     });
+
   }
 
   goToAddCategory(){

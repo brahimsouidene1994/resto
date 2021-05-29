@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -17,7 +18,9 @@ export class AddCategoryPage implements OnInit {
 
   constructor(
     private categoryService : CategoryService,
-    private router : Router)
+    private router : Router,
+    private alertController : AlertController
+    )
     {
       this.ngForm = {
         name: '',
@@ -26,7 +29,6 @@ export class AddCategoryPage implements OnInit {
      }
 
   ngOnInit() {
-    //console.log('list', this.categoryService.getCategories())
 
   }
   async addCategorie(f: NgForm){
@@ -35,6 +37,7 @@ export class AddCategoryPage implements OnInit {
       const cat = new Category( f.value.name,  f.value.image);
       console.log(cat)
       const  {err}=await this.categoryService.addCategorie(cat) as any;
+      this.presentAlert();
       if(!err)
         console.log("added");
     } catch (error) {
@@ -43,18 +46,19 @@ export class AddCategoryPage implements OnInit {
     }
     }
 
-
-
-  /*addCategorie(myForm : NgForm){
-    this.isSubmitted = true
-    console.log('test',  myForm.controls.name.value, myForm.controls.image.value)
-    this.categoryService.addCategorie(new Category(4,myForm.controls.name.value, myForm.controls.image.value ))
-    this.router.navigate(['/restaurants-category'])
-    //console.log('list', this.categoryService.getCategories())
-  }*/
-
   noSubmit(e) {
     e.preventDefault();
   }
 
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Success',
+      message: 'Ajout avec succée',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+    this.router.navigate([`/restaurants-category`]);
+  }
 }

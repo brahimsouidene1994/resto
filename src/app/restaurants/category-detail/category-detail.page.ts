@@ -81,8 +81,9 @@ export class CategoryDetailPage implements OnInit {
   showDetail(resto : Restaurant){
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        special: JSON.stringify(resto)
-      }
+        special: JSON.stringify(resto),
+      },
+      skipLocationChange: true
     };
     this.router.navigate(['/restaurants-details'], navigationExtras);
   }

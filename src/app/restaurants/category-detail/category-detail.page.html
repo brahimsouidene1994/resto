@@ -9,20 +9,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button routerLink="/restaurant-add/{{indice}}">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-  <ion-title> restaurants</ion-title>
-  <ion-list>
-    <ion-item *ngFor="let resto of this.list_restaurants" (click)="showDetail(resto)">
+  <ion-list *ngIf="this.list_restaurants" style="width: 95%; height: fit-content;">
+    <ion-item *ngFor="let resto of this.list_restaurants" (click)="showDetail(resto)" >
       <ion-avatar slot="start">
         <ion-img [src]="resto.image" ></ion-img>
       </ion-avatar>
-      <ion-label>{{resto.name}}</ion-label>
+      <ion-label >{{resto.name}}</ion-label>
     </ion-item>
   </ion-list>
+  <h1 *ngIf="!this.list_restaurants" style="text-align: center; font-size: xx-large; font-weight: bold; color: gray; ">Pas des restaurants!!</h1>
+
 </ion-content>

@@ -43,18 +43,6 @@ export class RestaurantAddPage  {
       }
   }
 
-  /*addRestaurant(myForm : NgForm){
-    this.isSubmitted = true
-    this.categoryService
-            .addRestaurant(this.indice,
-              new Restaurant(
-                myForm.controls.id.value,
-                myForm.controls.name.value,
-                myForm.controls.adresse.value,
-                myForm.controls.image.value ))
-    this.presentAlert()
-  }*/
-
   async addRestaurant(f : NgForm){
     try{
       const restaurant = new Restaurant(f.value.name, f.value.image, f.value.adresse, this.indice);
